@@ -1,14 +1,20 @@
-# Use a base image with Java 21
-FROM eclipse-temurin:21-jdk-alpine
+# ---- Stage 1: Build the JAR ----
+FROM maven:3.9.4-eclipse-temurin-21 AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy the jar built by Maven an d renames it to app.jar
-COPY target/jobtracker-0.0.1-SNAPSHOT.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-# Expose the port your app runs on
+RUN mvn clean package -DskipTests
+
+# ---- Stage 2: Run the app ----
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/target/jobtracker-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
 
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
