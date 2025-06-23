@@ -1,0 +1,28 @@
+services:
+  app:
+    image: jobtracker-app:latest       # your built app image name
+    container_name: jobtracker-app
+    ports:
+      - "8080:8080"                    # map container 8080 to host 8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobtrackerdb
+      SPRING_DATASOURCE_USERNAME: username
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - postgres                       # wait for DB to start before app
+
+  postgres:
+    image: postgres:15                 # official postgres image version 15
+    container_name: jobtracker-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jobtrackerdb
+    ports:
+      - "5433:5432"                   # expose postgres default port
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # persist DB data in volume
+
+volumes:
+  pgdata:
