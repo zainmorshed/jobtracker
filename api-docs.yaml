@@ -1,0 +1,382 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: https://jobtracker-us5f.onrender.com
+  description: Generated server url
+paths:
+  /api/users/{id}:
+    get:
+      tags:
+      - user-controller
+      operationId: getUserByID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+    put:
+      tags:
+      - user-controller
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: user
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      tags:
+      - user-controller
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/notes/{id}:
+    get:
+      tags:
+      - note-controller
+      operationId: getNoteById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Note"
+    put:
+      tags:
+      - note-controller
+      operationId: updateNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Note"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Note"
+    delete:
+      tags:
+      - note-controller
+      operationId: deleteNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/companies/{id}:
+    get:
+      tags:
+      - company-controller
+      operationId: getCompanyById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Company"
+    put:
+      tags:
+      - company-controller
+      operationId: updateCompany
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Company"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Company"
+    delete:
+      tags:
+      - company-controller
+      operationId: deleteComapny
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/users:
+    get:
+      tags:
+      - user-controller
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+    post:
+      tags:
+      - user-controller
+      operationId: saveUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+  /api/notes:
+    get:
+      tags:
+      - note-controller
+      operationId: getAllNotes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+    post:
+      tags:
+      - note-controller
+      operationId: saveNote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Note"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Note"
+  /api/jobs:
+    get:
+      tags:
+      - job-application-controller
+      operationId: getAllJobs
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/JobApplication"
+    post:
+      tags:
+      - job-application-controller
+      operationId: saveJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobApplication"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobApplication"
+  /api/companies:
+    get:
+      tags:
+      - company-controller
+      operationId: getAllCompanies
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Company"
+    post:
+      tags:
+      - company-controller
+      operationId: saveCompany
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Company"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Company"
+  /api/jobs/{id}:
+    get:
+      tags:
+      - job-application-controller
+      operationId: getJobById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobApplication"
+    delete:
+      tags:
+      - job-application-controller
+      operationId: deleteJob
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+    Note:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        phoneNumber:
+          type: string
+    JobApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        jobTitle:
+          type: string
+        companyName:
+          type: string
+        applicationDate:
+          type: string
+        status:
+          type: string
+          enum:
+          - APPLIED
+          - INTERVIEWED
+          - OFFERED
+          - REJECTED
