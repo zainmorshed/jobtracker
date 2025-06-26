@@ -65,13 +65,15 @@ jobtracker/
 ├── README.md                  # This file
 └── application.properties     # Spring Boot config
 
-🐘 PostgreSQL Info
+🐘 PostgreSQL Configuration
 
-Username: postgres
+Database credentials are managed securely using environment variables:
 
-Password: Jakarta39069!
+- `SPRING_DATASOURCE_URL`
+- `SPRING_DATASOURCE_USERNAME`
+- `SPRING_DATASOURCE_PASSWORD`
 
-DB Name: jobtrackerdb
+These are set in the Render dashboard and not stored in the codebase.
 
 📤 Docker Hub
 You can also pull the image directly:
@@ -83,6 +85,14 @@ docker pull zainmorshed/jobtracker-app:latest
 ./mvnw clean package
 ```
 This creates a .jar file in the target/ folder.
+
+
+### API Documentation
+You can access the full API documentation and test endpoints using Swagger UI here:
+👉 [Swagger UI](https://jobtracker-us5f.onrender.com/swagger-ui/index.html)
+
+OpenAPI JSON Spec: https://jobtracker-us5f.onrender.com/v3/api-docs
+
 
 🧾 License
 MIT License © 2025 Zain Morshed
