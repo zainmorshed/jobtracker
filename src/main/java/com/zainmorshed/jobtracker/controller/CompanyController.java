@@ -17,6 +17,7 @@ import com.zainmorshed.jobtracker.model.Company;
 
 @RestController
 @RequestMapping("/api/companies")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CompanyController {
     
     private final CompanyService companyService;
