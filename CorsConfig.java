@@ -10,9 +10,16 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173", "http://localhost:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOriginPatterns("*") // More flexible than allowedOrigins
+                .allowedOrigins(
+                    "http://localhost:5173", 
+                    "http://localhost:3000",
+                    "https://yourfrontend.netlify.app", // Add your deployed frontend URL
+                    "https://yourfrontend.vercel.app"   // Add other frontend URLs as needed
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
-                .allowCredentials(false);
+                .allowCredentials(true) // Changed to true for better compatibility
+                .maxAge(3600); // Cache preflight for 1 hour
     }
 }
